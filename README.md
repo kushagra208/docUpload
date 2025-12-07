@@ -183,7 +183,7 @@ Response: User object
 
 ### Crypto Endpoints
 
-**Upload File**
+**Get PublicKey**
 ```
 GET /api/crypto/public-key
 Response: Public-Key
