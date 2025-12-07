@@ -26,13 +26,13 @@ A full-stack file sharing application that allows users to upload files, share t
 - **Framework**: Express.js
 - **Database**: MongoDB
 - **Authentication**: JWT (JSON Web Tokens)
-- **File Storage**: Local filesystem (uploadable to cloud)
+- **File Storage**: Cloud
 - **Compression**: Built-in zlib for file compression support
 
 ### Frontend
 - **Framework**: React 18
 - **Build Tool**: Vite
-- **Styling**: Tailwind CSS
+- **Styling**: MUI
 - **Routing**: React Router v6
 - **HTTP Client**: Axios
 
@@ -51,11 +51,14 @@ docUpload/
 │   │   ├── authController.js
 │   │   ├── fileController.js
 │   │   ├── shareController.js
-│   │   └── auditController.js
+│   │   ├── crytoController.js
+|   |   └── auditController.js
+|   |   
 │   ├── routes/          # API routes
 │   │   ├── authRoutes.js
 │   │   ├── fileRoutes.js
 │   │   ├── shareRoutes.js
+│   │   ├── cryptoRoutes.js
 │   │   └── auditRoutes.js
 │   ├── middleware/      # Authentication middleware
 │   ├── utils/           # Helper functions
@@ -76,16 +79,17 @@ docUpload/
 │   │   │   ├── Register.jsx
 │   │   │   ├── Dashboard.jsx
 │   │   │   ├── SharedWithMe.jsx
+│   │   │   ├── SharedFile.jsx
 │   │   │   └── AuditLog.jsx
 │   │   ├── utils/
 │   │   │   ├── api.js    # API client
+│   │   │   ├── encryption.js    # Encryption Util
 │   │   │   └── AuthContext.jsx
 │   │   ├── App.jsx
 │   │   ├── main.jsx
 │   │   └── index.css
 │   ├── index.html
 │   ├── vite.config.js
-│   ├── tailwind.config.js
 │   └── package.json
 │
 └── .gitignore
@@ -117,13 +121,15 @@ docUpload/
 
 4. **Configure environment variables in `.env`**
    ```
-   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/fileSharing
-   JWT_SECRET=your_super_secret_key_change_this
-   PORT=5000
-   NODE_ENV=development
-   FRONTEND_URL=http://localhost:3000
-   FILE_STORAGE_PATH=./uploads
-   MAX_FILE_SIZE=52428800
+    MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/fileSharing
+    JWT_SECRET=your_jwt_secret_key_change_this
+    PORT=5000
+    NODE_ENV=development
+    FRONTEND_URL=http://localhost:3000
+    MAX_FILE_SIZE=52428800
+    CLOUDINARY_CLOUD_NAME=cloud_name
+    CLOUDINARY_API_KEY=cloudinary_api_key
+    CLOUDINARY_API_SECRET=cloudinary_api_secret
    ```
 
 5. **Create uploads directory**
@@ -149,13 +155,7 @@ docUpload/
    npm install
    ```
 
-3. **Install additional dependencies**
-   ```bash
-   npm install -D tailwindcss postcss autoprefixer
-   npx tailwindcss init -p
-   ```
-
-4. **Start development server**
+3. **Start development server**
    ```bash
    npm run dev
    ```
@@ -184,6 +184,14 @@ Response: { token, user: { id, username, email } }
 GET /api/auth/profile
 Headers: Authorization: Bearer <token>
 Response: User object
+```
+
+### Crypto Endpoints
+
+**Upload File**
+```
+GET /api/crypto/public-key
+Response: Public-Key
 ```
 
 ### File Endpoints
@@ -285,10 +293,12 @@ Headers: Authorization: Bearer <token>
 
 ### Access Control
 - ✅ JWT-based authentication
+- ✅ Refresh token and access token validations
 - ✅ Authorization checks on all endpoints
 - ✅ Share token validation before file access
 - ✅ Automatic expiry enforcement for shares and links
 - ✅ Owner-only delete operations
+- ✅ Data encrypted with RSA + AES while transmission
 
 ### File Validation
 - ✅ File type whitelist (PDF, images, documents, CSV, ZIP)
@@ -301,26 +311,6 @@ Headers: Authorization: Bearer <token>
 - ✅ User tracking for each action
 - ✅ Share/access activity tracking
 - ✅ Download history
-
-## Deployment
-
-### Deploy Backend to Render
-
-1. **Create account** at https://render.com
-2. **Connect GitHub repository**
-3. **Create new Web Service**
-4. **Configure environment variables** in Render dashboard
-5. **Deploy** - Render automatically builds and deploys
-
-### Deploy Frontend to Vercel
-
-1. **Create account** at https://vercel.com
-2. **Import Git repository**
-3. **Configure build settings**:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-4. **Set VITE_API_URL** to your backend URL in environment variables
-5. **Deploy** - Automatic deployment on push
 
 ## Testing the App
 
@@ -355,47 +345,3 @@ MAX_FILE_SIZE=            # Maximum file size in bytes
 VITE_API_URL=             # Backend API URL
 ```
 
-## Troubleshooting
-
-**CORS Error**
-- Ensure FRONTEND_URL in backend matches your frontend URL
-- Check backend is running on correct port
-
-**Upload Fails**
-- Verify file size doesn't exceed MAX_FILE_SIZE
-- Check file type is in allowed list
-- Ensure uploads directory exists and has write permissions
-
-**Share Link Not Working**
-- Verify user is authenticated
-- Check link hasn't expired
-- Ensure token exists in database
-
-**Can't Connect to MongoDB**
-- Verify connection string is correct
-- Check IP whitelist on MongoDB Atlas
-- Ensure database credentials are valid
-
-## Future Enhancements
-
-- [ ] File preview in browser
-- [ ] Real-time notifications
-- [ ] Advanced search and filtering
-- [ ] File versioning
-- [ ] Comments and annotations
-- [ ] Email notifications
-- [ ] S3/Cloud storage integration
-- [ ] Docker containerization
-
-## License
-
-MIT License - Feel free to use for educational purposes
-
-## Support
-
-For issues and questions, please create a GitHub issue in the repository.
-
----
-
-**Created by**: Your Name
-**Last Updated**: December 2025

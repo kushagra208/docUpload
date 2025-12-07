@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post('/share-with-user', authenticate, shareWithUser);
 router.post('/generate-link', authenticate, generateShareLink);
-router.get('/access/:token', accessViaLink);
+router.get('/access/:token', authenticate, accessViaLink);
 router.delete('/revoke-share/:shareId', authenticate, revokeShare);
 router.delete('/revoke-link/:linkId', authenticate, revokeLink);
 router.get('/file-shares/:fileId', authenticate, getFileShares);

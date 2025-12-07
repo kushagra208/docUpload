@@ -132,10 +132,10 @@ export const accessViaLink = async (req, res) => {
       return res.status(400).json({ error: 'Token is required' });
     }
 
-    // if (!req.userId) {
-    //   return res.status(401).json({ error: 'Authentication required' });
-    // }
-    console.log("Token received for access:", token);
+    if (!req.userId) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+    // console.log("Token received for access:", token);
     const shareLink = await ShareLink.findOne({ token }).populate('file');
 
     if (!shareLink) {
