@@ -5,19 +5,19 @@ A full-stack file sharing application that allows users to upload files, share t
 ## Features
 
 ### Core Features
-✅ **User Authentication**: Secure registration and login with JWT tokens
-✅ **File Upload**: Single and bulk file upload with validation
-✅ **File Sharing**: Share files with specific users with role-based access
-✅ **Share Links**: Generate secure, shareable links with expiry support
-✅ **Access Control**: Strict authorization checks on all sharing methods
-✅ **File Metadata**: Display filename, type, size, and upload date
-✅ **Download**: Authenticated users can download shared files
+✅ **User Authentication**: Secure registration and login with JWT tokens<br/>
+✅ **File Upload**: Single and bulk file upload with validation<br/>
+✅ **File Sharing**: Share files with specific users with role-based access<br/>
+✅ **Share Links**: Generate secure, shareable links with expiry support<br/>
+✅ **Access Control**: Strict authorization checks on all sharing methods<br/>
+✅ **File Metadata**: Display filename, type, size, and upload date<br/>
+✅ **Download**: Authenticated users can download shared files<br/>
 
 ### Bonus Features
-✅ **Link Expiry**: Set expiration times for both user shares and links
-✅ **Audit Logging**: Complete activity log per user with action tracking
-✅ **Role-Based Access**: Viewer and Editor roles for shared files
-✅ **File Management**: Delete files and revoke shares
+✅ **Link Expiry**: Set expiration times for both user shares and links<br/>
+✅ **Audit Logging**: Complete activity log per user with action tracking<br/>
+✅ **Role-Based Access**: Viewer and Editor roles for shared files<br/>
+✅ **File Management**: Delete files and revoke shares<br/>
 
 ## Tech Stack
 
@@ -132,12 +132,7 @@ docUpload/
     CLOUDINARY_API_SECRET=cloudinary_api_secret
    ```
 
-5. **Create uploads directory**
-   ```bash
-   mkdir uploads
-   ```
-
-6. **Start the server**
+5. **Start the server**
    ```bash
    npm run dev
    ```
@@ -188,7 +183,7 @@ Response: User object
 
 ### Crypto Endpoints
 
-**Upload File**
+**Get PublicKey**
 ```
 GET /api/crypto/public-key
 Response: Public-Key
@@ -327,21 +322,4 @@ Headers: Authorization: Bearer <token>
 6. Check Shared Files section
 7. View Activity Log
 
-## Environment Variables Reference
-
-### Backend (.env)
-```
-MONGODB_URI=              # MongoDB connection string
-JWT_SECRET=               # Secret key for JWT signing
-PORT=                     # Server port (default: 5000)
-NODE_ENV=                 # Environment (development/production)
-FRONTEND_URL=             # Frontend URL for CORS
-FILE_STORAGE_PATH=        # Directory for uploaded files
-MAX_FILE_SIZE=            # Maximum file size in bytes
-```
-
-### Frontend (.env)
-```
-VITE_API_URL=             # Backend API URL
-```
 
