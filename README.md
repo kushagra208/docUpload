@@ -322,21 +322,4 @@ Headers: Authorization: Bearer <token>
 6. Check Shared Files section
 7. View Activity Log
 
-## Environment Variables Reference
-
-### Backend (.env)
-```
-MONGODB_URI=              # MongoDB connection string
-JWT_SECRET=               # Secret key for JWT signing
-PORT=                     # Server port (default: 5000)
-NODE_ENV=                 # Environment (development/production)
-FRONTEND_URL=             # Frontend URL for CORS
-FILE_STORAGE_PATH=        # Directory for uploaded files
-MAX_FILE_SIZE=            # Maximum file size in bytes
-```
-
-### Frontend (.env)
-```
-VITE_API_URL=             # Backend API URL
-```
 
