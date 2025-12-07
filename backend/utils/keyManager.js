@@ -30,14 +30,14 @@ const initializeKeys = () => {
 
 // Get server keys
 const getServerKeys = () => {
-  ensureKeysDir();
+//   ensureKeysDir();
   
-  if (!fs.existsSync(publicKeyPath) || !fs.existsSync(privateKeyPath)) {
-    throw new Error('RSA keys not found. Call initializeKeys first.');
-  }
+//   if (!fs.existsSync(publicKeyPath) || !fs.existsSync(privateKeyPath)) {
+//     throw new Error('RSA keys not found. Call initializeKeys first.');
+//   }
 
-  const publicKey = fs.readFileSync(publicKeyPath, 'utf8');
-  const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
+  const publicKey = process.env.PUBLICKEY.split(String.raw`\n`).join('\n');
+  const privateKey = process.env.PRIVATEKEY.split(String.raw`\n`).join('\n');
 
   return { publicKey, privateKey };
 };

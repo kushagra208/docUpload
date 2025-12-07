@@ -11,12 +11,12 @@ import shareRoutes from './routes/shareRoutes.js';
 import auditRoutes from './routes/auditRoutes.js';
 import cryptoRoutes from './routes/cryptoRoutes.js';
 import { decryptionMiddleware, encryptResponseMiddleware } from './middleware/decryption.js';
-import { initializeKeys } from './utils/keyManager.js';
+// import { initializeKeys } from './utils/keyManager.js';
 
 dotenv.config();
 
 // Initialize encryption keys
-initializeKeys();
+// initializeKeys();
 
 const app = express();
 
@@ -30,11 +30,6 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(compressionMiddleware());
 app.use(decryptionMiddleware);
 app.use(encryptResponseMiddleware);
-
-// Create uploads directory if it doesn't exist
-if (!fs.existsSync('./uploads')) {
-  fs.mkdirSync('./uploads');
-}
 
 // Database Connection
 mongoose
